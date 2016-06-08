@@ -44,16 +44,24 @@ func hello(w http.ResponseWriter, req *http.Request) {
 	var t outside
 	err1 := decoder.Decode(&t)
 	if err1 != nil {
-		print("ERR1")
+		print("ERR0\n")
 		return
 	}
+
+	// Next, security check
+	if (t.In.Compiler != 8080) && osbanned(t.In.Body) {
+		print("ERR1 security\n")
+		return
+	}
+
+	// Now, build url encoded request for the actual playground docker
 
 	data := url.Values{}
 	data.Set("version", "2")
 	data.Add("body", t.In.Body)
 
 	if (t.In.Compiler > 8080) || (t.In.Compiler < 8000) {
-		print("ERR1x")
+		print("ERR1x\n")
 		return
 	}
 
@@ -68,7 +76,7 @@ func hello(w http.ResponseWriter, req *http.Request) {
 	r, err2 := http.NewRequest("POST", url, bytes.NewBufferString(payload)) // <-- URL-encoded payload
 
 	if err2 != nil {
-		print("ERR2")
+		print("ERR2\n")
 		return
 	}
 
@@ -88,7 +96,7 @@ func hello(w http.ResponseWriter, req *http.Request) {
 	defer resp.Body.Close()
 	contents, err4 := ioutil.ReadAll(resp.Body)
 	if err4 != nil {
-		print("ERR4")
+		print("ERR4\n")
 		return
 	}
 
@@ -98,12 +106,12 @@ func hello(w http.ResponseWriter, req *http.Request) {
 	// write to file
 	err5 := ioutil.WriteFile("/tmp/"+t.In.Id+".js", []byte(jsonp), 0644)
 	if err5 != nil {
-		print("ERR5")
+		print("ERR5\n")
 		return
 	}
 
 	if resp.Status != "200 OK" {
-		print("ERR6")
+		print("ERR6\n")
 		return
 	}
 
