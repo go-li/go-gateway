@@ -1,0 +1,33 @@
+{
+  "project": "gateway",
+  "services": [
+    {
+      "id": "frontend",
+      "apps": [
+        {
+          "status": [
+            "running"
+          ],
+          "env": {
+            "MESSAGE": "sloppy!"
+          },
+          "domain": {
+            "uri": "$URI"
+          },
+          "mem": 256,
+          "image": "goli/go-gateway",
+          "instances": 1,
+          "id": "gateway",
+          "health_checks": [],
+          "volumes": [],
+          "port_mappings": [
+            {
+              "container_port": 80,
+              "protocol": "tcp"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
