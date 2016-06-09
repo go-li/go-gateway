@@ -1,0 +1,5 @@
+FROM scratch
+ADD go-gateway /
+
+EXPOSE 80
+ENTRYPOINT ["/go-gateway"]
