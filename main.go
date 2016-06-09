@@ -133,9 +133,18 @@ if err5 != nil {
 			t.In.Security = true
 		}
 
-		// myhost is based on port
+		// myhost is based on cloud port
 		if t.In.Compiler == 7000 {
 			myhost = sloppyhost
+			t.In.Compiler = 8078
+		} else if t.In.Compiler == 7001 {
+			myhost = "play.golang.mx"
+			t.In.Compiler = 80
+		} else if t.In.Compiler == 7003 {
+			myhost = sloppyhost
+			t.In.Compiler = 8333
+		} else if t.In.Compiler == 7002 {
+			myhost = "play.golang.org"
 			t.In.Compiler = 80
 		} else {
 			//unknown cloud port
