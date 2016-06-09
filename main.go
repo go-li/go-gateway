@@ -140,12 +140,15 @@ if err5 != nil {
 		} else if t.In.Compiler == 7001 {
 			myhost = "play.golang.mx"
 			t.In.Compiler = 80
-		} else if t.In.Compiler == 7003 {
-			myhost = sloppyhost
-			t.In.Compiler = 8333
 		} else if t.In.Compiler == 7002 {
 			myhost = "play.golang.org"
 			t.In.Compiler = 80
+		} else if t.In.Compiler == 7003 {
+			myhost = sloppyhost
+			t.In.Compiler = 8333
+		} else if t.In.Compiler == 7004 {
+			myhost = "gccbox.backend.playground"
+			t.In.Compiler = 8333
 		} else {
 			//unknown cloud port
 			print("ERR1\n")
